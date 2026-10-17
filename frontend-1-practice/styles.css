@@ -1,6 +1,3 @@
-/* Стили страницы.
-   Пишите здесь. */
-
 * {
   margin: 0;
   padding: 0;
@@ -8,6 +5,529 @@
 }
 
 body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #c0babf;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: #333;
+  line-height: 1.5;
+}
+
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  background-color: transparent;
   min-height: 100vh;
-  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Шапка */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 40px;
+  background-color: #bebebe;
+  border-bottom: 1px solid rgba(107, 45, 92, 0.2);
+}
+
+.logo-text {
+  font-size: 30px;
+  font-weight: 800;
+  color: #6b2d5c;
+  letter-spacing: 3px;
+  text-shadow:
+    1px 1px 0 #ffffff,
+    -1px -1px 0 #ffffff,
+    1px -1px 0 #ffffff,
+    -1px 1px 0 #ffffff;
+}
+
+.nav {
+  display: flex;
+  gap: 32px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #4a4a4a;
+  font-size: 15px;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #6b2d5c;
+}
+
+/* Индикатор шагов */
+.steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 22px 40px;
+  background-color: #c0babf;
+  gap: 0;
+}
+
+.step-circle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: #b088a4;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.step-circle.active {
+  background-color: #4a1a3d;
+}
+
+.step-line {
+  width: 200px;
+  height: 2px;
+  background-color: #4a1a3d;
+}
+
+/* Основной контент */
+.main {
+  flex: 1;
+  padding: 35px 40px 50px;
+}
+
+.main-title {
+  font-size: 34px;
+  font-weight: 800;
+  color: #6b2d5c;
+  margin-bottom: 28px;
+  letter-spacing: 0.5px;
+}
+
+.content-wrapper {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 45px;
+  align-items: flex-start;
+}
+
+/* Календарь */
+.calendar {
+  flex: 1.15;
+  background-color: #b088a4;   
+  border-radius: 14px;
+  padding: 22px 24px 25px;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.calendar-month {
+  font-size: 20px;
+  font-weight: 700;
+  color: #3a1a30;
+}
+
+.calendar-nav {
+  display: flex;
+  gap: 8px;
+}
+
+.calendar-arrow {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: none;
+  background-color: rgba(74, 26, 61, 0.35);
+  color: #ffffff;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.s ease;
+}
+
+.calendar-arrow:hover {
+  background-color: rgba(74, 26, 61, 0.7);
+}
+
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.calendar-weekdays span {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #3a1a30;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px 6px;
+}
+
+.day {  
+  height: 38px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: #ffffff;
+  background-color: #974a7a;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.15s ease;
+  border: none;
+  font-family: inherit;
+}
+
+.day:hover:not(.disabled) {
+  background-color: #7a2d62;
+  transform: scale(1.05);
+}
+
+.day.other-month:hover {
+  background-color: #9a5a88;
+  transform: scale(1.05);
+}
+
+.day.selected {
+  background-color: #f5f0f4;
+  color: #6b2d5c;
+  font-weight: 700;
+  border: 2px solid #ffffff;
+}
+
+.day.other-month {
+  background-color: #b06a9a;
+  color: #ffffff;
+}
+
+.day.disabled {
+  background-color: rgba(107, 45, 92, 0.35);
+  color: rgba(255, 255, 255, 0.5);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Слоты времени */
+.time-slots {
+  flex: 1;
+  background-color: #b088a4;
+  border-radius: 14px;
+  padding: 22px 24px 28px;
+}
+
+.slots-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #3a1a30;
+  margin-bottom: 18px;
+}
+
+.slots-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.slot {
+  padding: 14px 10px;
+  border-radius: 10px;
+  border: none;
+  background-color: #a4448c;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-height: 62px;
+  transition: background-color 0.3s ease, transform 0.15s ease;
+}
+
+.slot:hover:not(.busy) {
+  background-color: #8b3e79;
+  transform: translateY(-2px);
+}
+
+.slot.busy {
+  background-color: rgba(107, 45, 92, 0.45);
+  cursor: not-allowed;
+  color: rgba(255, 255, 255, 0.75);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.slot-time {
+  font-size: 16px;
+}
+
+.slot-status {
+  font-size: 11px;
+  font-weight: 400;
+  
+}
+
+/* Кнопки действий */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 22px;
+}
+
+.btn {
+  padding: 14px 55px;
+  border-radius: 30px;
+  border: none;
+  font-size: 18px;
+  font-weight: 600;
+  font-style: italic;   
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.15s ease;
+}
+
+.btn-back {
+  background-color: #ab8b9e;
+  color: #ffffff;
+}
+
+.btn-back:hover {
+  background-color: #8d6d83;
+  transform: translateY(-2px);
+}
+
+.btn-next {
+  background-color: #6e275b;
+  color: #ffffff;
+}
+
+.btn-next:hover {
+  background-color: #8d3c78;
+  transform: translateY(-2px);
+}
+
+/* Подвал */
+.footer {
+  background-color: #2b2b2b;
+  color: #ffffff;
+  padding: 45px 40px 25px;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  gap: 60px;
+  margin-bottom: 35px;
+}
+
+.footer-brand {
+  max-width: 300px;
+}
+
+.footer-logo {
+  font-size: 26px;
+  font-weight: 800;
+  color: #e8a0c8;
+  letter-spacing: 3px;
+  display: block;
+  margin-bottom: 12px;
+  text-shadow: 0 0 12px rgba(232, 160, 200, 0.6);
+}
+
+.footer-desc {
+  font-size: 13px;
+  color: #aaa;
+  line-height: 1.7;
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-title {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #ffffff;
+  margin-bottom: 6px;
+}
+
+.footer-text {
+  font-size: 14px;
+  color: #ccc;
+}
+
+.footer-icon {
+  margin-right: 4px;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 22px;
+  border-top: 1px solid #3d3d3d;
+}
+
+.copyright {
+  font-size: 13px;
+  color: #888;
+}
+
+.footer-link {
+  font-size: 13px;
+  color: #888;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+  color: #e8a0c8;
+}
+
+
+/* Адаптивность */
+
+@media (max-width: 900px) {
+  .content-wrapper {
+    flex-direction: column;  
+  }
+
+  .step-line {
+    width: 100px;             
+  }
+}
+
+@media (max-width: 700px) {
+  /* Шапка */
+  .header {
+    flex-direction: column;   
+    gap: 16px;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .nav {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+  }
+
+  .nav-link {
+    font-size: 14px;
+  }
+
+  /* Шаги */
+  .steps {
+    padding: 16px 12px;
+  }
+
+  .step-line {
+    width: 40px;             
+  }
+
+  .step-circle {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+
+  /* Основной контент */
+  .main {
+    padding: 24px 16px 40px;
+  }
+
+  .main-title {
+    font-size: 24px;          
+  }
+
+  /* Календарь и слоты */
+  .calendar,
+  .time-slots {
+    padding: 18px 16px 20px;
+  }
+
+  .calendar-month,
+  .slots-title {
+    font-size: 18px;
+  }
+
+  .calendar-weekdays span {
+    font-size: 11px;
+  }
+
+  .day {
+    height: 32px;
+    font-size: 12px;
+    border-radius: 16px;
+  }
+
+  .slot {
+    padding: 12px 8px;
+    min-height: 52px;
+    font-size: 14px;
+  }
+
+  .slot-time {
+    font-size: 14px;
+  }
+
+  .slot-status {
+    font-size: 10px;
+  }
+
+  /*Кнопки*/
+  .actions {
+    flex-direction: column;   
+    gap: 12px;
+  }
+
+  .btn {
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 16px;
+  }
+
+  /* Подвал */
+  .footer {
+    padding: 30px 20px 20px;
+  }
+
+  .footer-content {
+    flex-direction: column;  
+    gap: 24px;
+  }
+
+  .footer-brand {
+    max-width: 100%;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
 }
