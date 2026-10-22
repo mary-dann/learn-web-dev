@@ -3,12 +3,141 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Выбор даты и времени</title>
+    <title>Выбор даты и времени — ОРХИДЕЯ</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="page">
-      <!-- Перенесите вашу верстку. Удалите статичные данные. Подключите скрипт -->
+
+      <!-- Шапка -->
+      <header class="header">
+        <div class="logo">
+          <span class="logo-text">ОРХИДЕЯ</span>
+        </div>
+        <nav class="nav">
+          <a href="#" class="nav-link">Услуги</a>
+          <a href="#" class="nav-link">Галерея</a>
+          <a href="#" class="nav-link">Команда</a>
+          <a href="#" class="nav-link">Отзывы</a>
+          <a href="#" class="nav-link">Контакты</a>
+        </nav>
+      </header>
+
+      <!-- Индикатор шагов -->
+      <section class="steps">
+        <div class="step">
+          <div class="step-circle">1</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step">
+          <div class="step-circle">2</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step">
+          <div class="step-circle active">3</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step">
+          <div class="step-circle">4</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step">
+          <div class="step-circle">5</div>
+        </div>
+      </section> 
+ 
+    <!-- Основной контент -->
+    <main class="main">
+      <h1 class="main-title">Выберете удобное время</h1>
+
+      <div class="content-wrapper">
+        <!-- Календарь -->
+        <section class="calendar">
+          <div class="calendar-header">
+            <span class="calendar-month" id="calendar-month">Ноябрь 2026</span>
+            <div class="calendar-nav">
+              <button class="calendar-arrow" id="prev-month">‹</button>
+              <button class="calendar-arrow" id="next-month">›</button>
+            </div>
+          </div>
+
+          <div class="calendar-weekdays">
+            <span>Пн</span>
+            <span>Вт</span>
+            <span>Ср</span>
+            <span>Чт</span>
+            <span>Пт</span>
+            <span>Сб</span>
+            <span>Вс</span>
+          </div>
+
+          <!-- Сюда JS будет вставлять дни -->
+          <div class="calendar-grid" id="calendar-grid"></div>
+        </section>
+
+        <!-- Слоты времени -->
+        <section class="time-slots">
+          <h2 class="slots-title">Доступное время</h2>
+
+          <!-- Сюда JS будет вставлять кнопки времени -->
+           
+          <div class="slots-grid" id="slots-grid"></div>
+        </section>
+      </div>
+
+      <!-- Нижняя панель (новая) -->
+      <div class="booking-summary">
+        <div class="summary-text" id="summary-text">
+          Выберите дату и время
+        </div>
+      </div>
+
+      <!-- Кнопки навигации -->
+      <div class="actions">
+        <button class="btn btn-back">Назад</button>
+        <button class="btn btn-next">Далее</button>
+      </div>
+    </main>
+
+      <!-- Подвал -->
+      <footer class="footer">
+        <div class="footer-content">
+
+          <div class="footer-brand">
+            <span class="logo-text">ОРХИДЕЯ</span>
+            <p class="footer-desc">
+              Стрижки · Окрашивание · Уход · Укладки<br />
+              Всё для ваших волос — в одном месте
+            </p>
+          </div>
+
+          <div class="footer-col">
+            <span class="footer-title">КОНТАКТЫ</span>
+            <p class="footer-text">
+              <span class="footer-icon"></span> ул. Садовая, 15, Москва
+            </p>
+            <p class="footer-text">
+              <span class="footer-icon"></span> +7 (495) 123-45-67
+            </p>
+          </div>
+
+          <div class="footer-col">
+            <span class="footer-title">РЕЖИМ РАБОТЫ</span>
+            <p class="footer-text">Пн–Пт: 9:00 – 21:00</p>
+            <p class="footer-text">Сб–Вс: 10:00 – 19:00</p>
+          </div>
+
+        </div>
+
+        <div class="footer-bottom">
+          <span class="copyright">© 2026. Все права защищены.</span>
+          <a href="#" class="footer-link">Политика конфиденциальности</a>
+        </div>
+      </footer>
+
     </div>
+    <!-- Подключение скрипта -->
+    <script src="script.js"></script>
+
   </body>
 </html>
