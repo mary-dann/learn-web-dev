@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Подтверждение записи — ОРХИДЕЯ</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <div class="page">
+      
+      <!-- Шапка -->
+      <header class="header">
+        <div class="logo">
+          <span class="logo-text">ОРХИДЕЯ</span>
+        </div>
+        <nav class="nav">
+          <a href="#" class="nav-link">Услуги</a>
+          <a href="#" class="nav-link">Галерея</a>
+          <a href="#" class="nav-link">Команда</a>
+          <a href="#" class="nav-link">Отзывы</a>
+          <a href="#" class="nav-link">Контакты</a>
+        </nav>
+      </header>
+
+      <!-- Индикатор шагов -->
+      <section class="steps">
+        <div class="step">
+          <div class="step-circle">1</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step">
+          <div class="step-circle">2</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step">
+          <div class="step-circle">3</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step">
+          <div class="step-circle active">4</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step">
+          <div class="step-circle">5</div>
+        </div>
+      </section>
+
+      <!-- Основной контент -->
+      <main class="main">
+        <h1 class="main-title">Запись подтверждена!</h1>
+        
+        <div class="booking-summary confirm-wrapper">
+            <div class="confirm-title">Ждем вас в салоне</div>
+            <div id="final-date" class="confirm-date">Дата и время</div>
+        </div>
+
+        <div class="actions" style="justify-content: center;">
+          <a href="index.html" class="btn btn-next" style="text-decoration: none; text-align: center;">На главную</a>
+        </div>
+      </main>
+
+      <!-- Подвал -->
+      <footer class="footer">
+        <div class="footer-content">
+
+          <div class="footer-brand">
+            <span class="logo-text">ОРХИДЕЯ</span>
+            <p class="footer-desc">
+              Стрижки · Окрашивание · Уход · Укладки<br />
+              Всё для ваших волос — в одном месте
+            </p>
+          </div>
+
+          <div class="footer-col">
+            <span class="footer-title">КОНТАКТЫ</span>
+            <p class="footer-text">
+              <span class="footer-icon"></span> ул. Садовая, 15, Москва
+            </p>
+            <p class="footer-text">
+              <span class="footer-icon"></span> +7 (495) 123-45-67
+            </p>
+          </div>
+
+          <div class="footer-col">
+            <span class="footer-title">РЕЖИМ РАБОТЫ</span>
+            <p class="footer-text">Пн–Пт: 9:00 – 21:00</p>
+            <p class="footer-text">Сб–Вс: 10:00 – 19:00</p>
+          </div>
+
+        </div>
+
+        <div class="footer-bottom">
+          <span class="copyright">© 2026. Все права защищены.</span>
+          <a href="#" class="footer-link">Политика конфиденциальности</a>
+        </div>
+      </footer>
+
+    </div>
+
+    <!-- Скрипт для вывода даты на странице подтверждения -->
+    <script>
+      // Получаем сохраненные данные
+      const savedDate = localStorage.getItem("bookingDate");
+      const finalDateEl = document.getElementById("final-date");
+
+      if (savedDate) {
+        finalDateEl.textContent = savedDate;
+      } else {
+        finalDateEl.textContent = "Данные о записи не найдены";
+        finalDateEl.classList.add("error");
+      }
+    </script>
+  </body>
+</html>
