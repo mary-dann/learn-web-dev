@@ -1,68 +1,34 @@
-// App — корневой компонент приложения.
-//
-// ЗАДАНИЕ
-// --------
-// Перенесите свою страницу выбора даты и времени из нативного JS
-// на React. У вас уже есть:
-//   - готовая вёрстка (HTML);
-//   - готовые стили (CSS);
-//   - рабочий код на нативном JS (валидация дат, рендер календаря,
-//     обработчики кликов, выбор слота).
-//
-// Теперь нужно то же самое сделать в React.
-//
-// ЧТО НУЖНО СДЕЛАТЬ
-// ------------------
-// 1. Разбить страницу на компоненты. Как именно — решайте сами.
-//    Обычно выделяют: шапку, подвал, календарь, сетку слотов,
-//    нижнюю панель.
-//
-// 2. Перенести вёрстку из HTML в JSX. Стили оставить как есть,
-//    просто положить их в тот же проект (например, в src/styles/
-//    или рядом с компонентами).
-//
-// 3. Заменить нативное состояние (переменные + прямые манипуляции
-//    с DOM) на useState. Какие именно данные должны жить в состоянии —
-//    подумайте сами. Скорее всего: текущий месяц, выбранный день,
-//    выбранное время, массив слотов.
-//
-// 4. Рендер календаря и слотов делать через JSX и .map(),
-//    без innerHTML и querySelector.
-//
-// 5. Обработчики кликов — через onClick прямо в JSX,
-//    без addEventListener.
-//
-// 6. Функции для работы с датами, которые вы уже написали
-//    на нативном JS (построение сетки календаря, сравнение дат,
-//    проверка «не раньше сегодня»), можно переиспользовать.
-//    Они чистые — не зависят от React. Создайте файл
-//    src/utils/date.js и перенесите их туда.
-//
-//
-// ПОДСКАЗКА
-// ---------
-// Если что-то не работает или непонятно, как перевести нативный
-// код на React — вернитесь к лекции. Там разбирались все
-// основные приёмы: состояние, пропсы, рендер списков, колбэки.
-//
-// Ниже — пустой каркас. Здесь можно начать писать.
-
 import { useState } from 'react';
 import Header from './components/Header';
 import Calendar from './components/Calendar';
 import TimeSlots from './components/TimeSlots';
+import SummaryBar from './components/SummaryBar'; 
 import { MONTH_NAMES, WEEKDAYS_FULL, compareDates } from './utils/date';
 
-const SLOTS_DATA = [ 
-  { time: "10:00", available: true },
-  { time: "11:00", available: false },
-  { time: "12:00", available: true },
-  { time: "13:00", available: false },
-  { time: "14:00", available: true },
-  { time: "15:00", available: true },
-  { time: "16:00", available: true },
-  { time: "17:00", available: true }
-];
+// Генерация слотов в зависимости от дня
+const getSlotsForDay = (day) => {
+  const baseSlots = [
+    { time: "10:00", available: true },
+    { time: "11:00", available: true },
+    { time: "12:00", available: true },
+    { time: "13:00", available: true },
+    { time: "14:00", available: true },
+    { time: "15:00", available: true },
+    { time: "16:00", available: true },
+    { time: "17:00", available: true }
+  ];
+
+  // Если день чётный — занято 11:00 и 13:00. Если нечётный — занято 14:00 и 16:00
+  return baseSlots.map(slot => {
+    let isBusy = false;
+    if (day % 2 === 0) {
+      isBusy = slot.time === "11:00" || slot.time === "13:00";
+    } else {
+      isBusy = slot.time === "14:00" || slot.time === "16:00";
+    }
+    return { ...slot, available: !isBusy };
+  });
+};
 
 const TODAY = new Date();
 
@@ -72,9 +38,17 @@ function App() {
   const [selectedDay, setSelectedDay] = useState(TODAY.getDate());
   const [selectedTime, setSelectedTime] = useState(null);
 
+  // Слоты зависят от selectedDay
+  const currentSlots = selectedDay ? getSlotsForDay(selectedDay) : [];
+
   const handleDayClick = (day) => {
     setSelectedDay(day);
     setSelectedTime(null);
+  };
+
+  const handleSlotClick = (time) => {
+    if (!selectedDay) return; // если дата не выбрана
+    setSelectedTime(time);
   };
 
   const changeMonth = (direction) => {
@@ -114,11 +88,16 @@ function App() {
     }
   };
 
+  // подпись «Выберите время»
   let summaryText = "Выберите дату и время";
   if (selectedDay) {
     const date = new Date(currentYear, currentMonth, selectedDay);
     summaryText = `${WEEKDAYS_FULL[date.getDay()]}, ${selectedDay} ${MONTH_NAMES[currentMonth].toLowerCase()} ${currentYear}`;
-    if (selectedTime) summaryText += ` • ${selectedTime}`;
+    if (selectedTime) {
+      summaryText += ` • ${selectedTime}`;
+    } else {
+      summaryText += ` • Выберите время`; 
+    }
   }
 
   return (
@@ -148,28 +127,26 @@ function App() {
           />
 
           <TimeSlots 
-            slots={SLOTS_DATA}
+            slots={currentSlots}
             selectedTime={selectedTime}
-            onSlotClick={setSelectedTime}
+            onSlotClick={handleSlotClick}
           />
         </div>
 
-        <div className="booking-summary">
-          <div className="summary-text">{summaryText}</div>
-        </div>
+        <SummaryBar summaryText={summaryText} />
 
         <div className="actions">
           <button className="btn btn-back">Назад</button>
           <button 
             className="btn btn-next" 
-            disabled={!selectedTime}
+            disabled={!selectedDay || !selectedTime}
             onClick={handleNextClick}
           >
             Далее
           </button>
         </div>
       </main>
-
+      
       <footer className="footer">
         <div className="footer-content">
           <div className="footer-brand">

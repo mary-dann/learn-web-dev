@@ -420,12 +420,6 @@ body {
   color: #e8a0c8;
 }
 
-.slot.selected {
-  background-color: #f5f0f4;
-  color: #6b2d5c;
-  border: 2px solid #6b2d5c;
-}
-
 .booking-summary {
   background-color: #b088a4;
   border-radius: 14px;

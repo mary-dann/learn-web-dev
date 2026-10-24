@@ -2,7 +2,9 @@ export default function TimeSlots({ slots, selectedTime, onSlotClick }) {
   return (
     <section className="time-slots">
       <h2 className="slots-title">Доступное время</h2>
-      <div className="slots-grid">
+        {slots.length === 0 ? (
+        <p style={{ color: '#6b2d5c', textAlign: 'center', marginTop: '20px' }}>Выберите дату в календаре</p>) : 
+        (<div className="slots-grid">
         {slots.map((slot) => {
           let classes = "slot";
           if (!slot.available) classes += " busy";
@@ -13,7 +15,7 @@ export default function TimeSlots({ slots, selectedTime, onSlotClick }) {
               key={slot.time}
               type="button"
               className={classes}
-              disabled={!slot.available}
+              disabled={!slot.available || slots.length === 0}
               onClick={() => onSlotClick(slot.time)}
             >
               <span className="slot-time">{slot.time}</span>
@@ -22,6 +24,7 @@ export default function TimeSlots({ slots, selectedTime, onSlotClick }) {
           );
         })}
       </div>
+    )}
     </section>
   );
 }

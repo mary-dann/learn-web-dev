@@ -263,6 +263,14 @@ body {
   transition: background-color 0.3s ease, transform 0.15s ease;
 }
 
+.slot.selected {
+  background-color: #ffcff5; 
+  color: #6b2d5c;           
+  border: 2px solid #6b2d5c; 
+  font-weight: 700;
+  transform: none;          
+}
+
 .slot:hover:not(.busy):not(.selected) {
   background-color: #8b3e79;
   transform: translateY(-2px);
@@ -273,14 +281,6 @@ body {
   cursor: not-allowed;
   color: rgba(255, 255, 255, 0.75);
   pointer-events: none;
-}
-
-.slot.selected {
-  background-color: #ffcff5; 
-  color: #6b2d5c;           
-  border: 2px solid #6b2d5c; 
-  font-weight: 700;
-  transform: none;          
 }
 
 .slot-time {
@@ -418,12 +418,6 @@ body {
 
 .footer-link:hover {
   color: #e8a0c8;
-}
-
-.slot.selected {
-  background-color: #f5f0f4;
-  color: #6b2d5c;
-  border: 2px solid #6b2d5c;
 }
 
 .booking-summary {
