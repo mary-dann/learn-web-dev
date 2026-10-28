@@ -1,0 +1,80 @@
+class Master:
+    def __init__(self, master_id: int):
+        self.master_id = master_id
+
+
+class Service:
+    def __init__(self, service_id: int):
+        self.service_id = service_id
+
+
+MASTERS = {1: Master(1)}
+SERVICES = {1: Service(1)}
+
+
+def get_master(master_id: int) -> Master | None:
+    return MASTERS.get(master_id)
+
+
+def get_service(service_id: int) -> Service | None:
+    return SERVICES.get(service_id)
+
+
+class Appointment:
+    def __init__(self, client_name: str, master_id: int, service_id: int, time: str):
+        self.id = len(appointments) + 1
+        self.client_name = client_name
+        self.master_id = master_id
+        self.service_id = service_id
+        self.time = time
+
+
+appointments = []
+
+
+def is_working_hours(time: str) -> bool:
+    try:
+        hours, minutes = map(int, time.split(":"))
+    except (ValueError, AttributeError):
+        return False
+
+    if not (0 <= hours < 24 and 0 <= minutes < 60):
+        return False
+
+    return 8 <= hours <= 20 and (hours < 20 or minutes == 0)
+
+
+def create_appointment(client_name: str, master_id: int, service_id: int, time: str) -> Appointment | None:
+    master = get_master(master_id)
+    service = get_service(service_id)
+
+    if master is None or service is None:
+        return None
+
+    if not client_name or not time:
+        return None
+
+    if not is_working_hours(time):
+        return None
+
+    appointment = Appointment(client_name=client_name, master_id=master.master_id, service_id=service.service_id, time=time)
+    appointments.append(appointment)
+    return appointment
+
+if __name__ == "__main__":
+    # Задание 1: две корректные записи 
+    first_appointment = create_appointment("Иванова А.А.", 1, 1, '10:00')
+    second_appointment = create_appointment("Петрова А.А.", 1, 1, '11:00')
+    print("Список записей:")
+    for appointment in appointments:
+        print(appointment.client_name, appointment.time)
+
+    # Задание 1: частично не заполнены поля 
+    appointments.clear()
+    no_correct_appointment = create_appointment("", 1, 1, '12:00')
+    print(len(appointments))  # 0
+
+    # Задание 2: некорректное время
+    appointments.clear()
+    no_correct_appointment = create_appointment("Сидорова А.А.", 1, 1, '00:00')
+    print(len(appointments)) 
